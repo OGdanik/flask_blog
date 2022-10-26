@@ -1,3 +1,5 @@
+#!/usr/bin/python3
+
 import os
 import sys
 from pwd import getpwuid
@@ -5,9 +7,10 @@ import datetime
 
 def statfile(f):
     format = 'Файл: '
-    statinfo =  os.lstat(s)
+    statinfo =  os.lstat(f)
     t1 = format + os.path.split(f)[1] + " Размер: " + str(statinfo.st_size) + " Владелец: " + str(getpwuid(statinfo.st_uid).pw_name)
     t1+= " Дата последнего изменения: " + datetime.datetime.fromtimestamp(statinfo.st_mtime).strftime('%Y-%m-%d %H:%M:%S')
+    t1+= " Права доступа: " + str(oct(statinfo.st_mode)[-3:])
     return t1
 
 def listdirs(s):
